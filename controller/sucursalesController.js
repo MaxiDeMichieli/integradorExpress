@@ -18,34 +18,15 @@ const sucursalesController = {
         res.set({'content-type':'text/plain;charset=utf-8'})
         let id = req.params.sucursal;
         let concesionarias = sucursalesController.leerJSON();
-        let sucursal;
-        switch(id){
-            case '3-de-febrero':
-                sucursal = "3 de Febrero";
-                break;
-            case 'pilar':
-                sucursal = "Pilar";
-                break;
-            case 'lanus':
-                sucursal = "Lanus";
-                break;
-            case 'quilmes':
-                sucursal = "Quilmes";
-                break;
-            case 'san-miguel':
-                sucursal = "San Miguel";
-                break;
-            default:
-                sucursal = 'error';
-        };
+        
         let concesionaria = concesionarias.filter((conce) => {
-            if(conce.sucursal == sucursal){
+            if(conce.sucursal == id){
                 return conce;
             };
         });
         concesionaria = concesionaria[0];
 
-        if(sucursal == 'error'){
+        if(concesionaria == undefined){
             res.write('-------------------------------\nEsta sucursal no fue encontrada\n-------------------------------')
         }else{
             res.write(`-----------------------------\n  Sucursal: ${concesionaria.sucursal}. \n-----------------------------\n\n\n`);
